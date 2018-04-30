@@ -60,12 +60,12 @@ export default {
 ### Как выглядит
 Для таких входных параметров ["black", "grey", "saddlebrown", "whitesmoke", "navajowhite"]
 
-![5 цветов ](https://github.com/guest363/vue-component/blob/master/color-piker/1.jpg)
+![5 цветов ](https://github.com/guest363/vue-component/blob/master/color-piker/exemple/1.jpg)
 
 При клике по нескольким элементам
 
-![несколько кликов](https://github.com/guest363/vue-component/blob/master/color-piker/2.jpg)
+![несколько кликов](https://github.com/guest363/vue-component/blob/master/color-piker/exemple/2.jpg)
 
 При наведении на эллемент
 
-![При наведении](https://github.com/guest363/vue-component/blob/master/color-piker/3.jpg)
+![При наведении](https://github.com/guest363/vue-component/blob/master/color-piker/exemple/3.jpg)
