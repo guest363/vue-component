@@ -23,26 +23,26 @@
 ```
 <template>
   <div>
-    *<color-picker :data='dataForColorPiker' v-on:colorPiked="colorPiked = $event"></color-picker>*
+    <color-picker :data='dataForColorPiker' v-on:colorPiked="colorPiked = $event"></color-picker>
   </div>
 </template>
 
 <script>
-*import colorPicker from '/path/color-piker.vue';*
+import colorPicker from '/path/color-piker.vue';
 
 export default {
   name: "Name",
   data: () => {
-    return *{
+    return {
         colorPiked: '',
         dataForColorPiker: {
             color: ["black", "grey", "saddlebrown"]
         }
-    };*
+    };
   },
-  *components: {
+  components: {
         "color-picker": colorPicker,
-  },*
+  },
   methods: {
     
   },
