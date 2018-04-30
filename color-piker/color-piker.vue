@@ -1,35 +1,3 @@
-/* 
-    ----==== Описание компонента ====------
-    Компонент выводит палитру заданных цветов. По цветам можно кликать, компонент возвращает названия 
-    выбранных цветов.
-    Цвета задаются через имя, список можно посмотреть здесь http://vvz.nw.ru/Lessons/HTML_Colors/HTMLcolors_HSB.htm
-    В родительском элементе указываем свойство, например colorPiked, куда компонент быдет передавить 
-    массив из выбранных цветов.
-    
-    На вход принимает обьект: 
-        {
-            color: ["black", "grey", "saddlebrown", "whitesmoke", "navajowhite"]
-        }
-    Передает массив вида при клике на любом цвете
-        ["black", "grey", "saddlebrown", "whitesmoke", "navajowhite"]
-
-    ----====== Определение компонента =====------
-    1 - import colorPicker from '../../reuse/color-piker.vue';
-    2 - components: {
-        "color-picker": colorPicker,
-    }
-    3 -   data: () => {
-                return {
-                colorPiked: '',
-                dataForColorPiker: {
-                    color: ["black", "grey", "saddlebrown", "whitesmoke", "navajowhite"]
-                }
-                };
-        },
-    4 -  <color-picker :data='dataForColorPiker' v-on:colorPiked="colorPiked = $event"></color-picker>
-    ------------------------------------------------
-*/
-
 <template>
   <div class="color-picker-wrap">
       <div v-for="item in data.color" v-on:click="$emit('colorPiked', whatIsSelect())">
