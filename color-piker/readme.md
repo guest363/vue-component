@@ -22,7 +22,7 @@
 ```
 ["black", "grey", "saddlebrown", "whitesmoke", "navajowhite"]
 ```
-### Инициализация
+## Инициализация
 
 Пример:
 
@@ -57,7 +57,10 @@ export default {
 </script>
 
 ```
-### Как выглядит
+## Установка
+
+Достаточно скопировать файл с расширением "vue"
+## Как выглядит
 Для таких входных параметров ["black", "grey", "saddlebrown", "whitesmoke", "navajowhite"]
 
 ![5 цветов ](https://github.com/guest363/vue-component/blob/master/color-piker/exemple/1.jpg)
