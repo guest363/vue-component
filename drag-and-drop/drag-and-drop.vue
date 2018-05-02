@@ -3,7 +3,7 @@
             <form class="dropZone--form">
                 <p class="dropZone--form--text">{{data.text.main}}</p>
                 <input type="file" class="hide" id="selectInput" multiple accept="image/*" >
-                <label class="dropZone--form--button" for="selectInput">{{data.text.button}}</label>
+                <label v-show="data.show.button" class="dropZone--form--button" for="selectInput">{{data.text.button}}</label>
                 <p v-show="data.show.limits" class="dropZone--form--text">{{data.text.limits}}</p>
             </form>
             <!-- Локальная загрузка довольна быстрая, полоса загрузки не требуется
@@ -48,7 +48,8 @@ const drag = {
       reader.onloadend = function() {
         const img = document.createElement("img");
         img.src = reader.result;
-        document.getElementById("dropZone--gallery").appendChild(img);
+        const image = document.getElementById("dropZone--gallery").appendChild(img);
+        image.className = "dropImg";
       };
     };
 
@@ -111,7 +112,7 @@ dropZone--form--text {
   margin-top: 10px;
 }
 
-#dropZone--gallery img {
+>>> .dropImg {
   width: 150px;
   margin-bottom: 10px;
   margin-right: 10px;
