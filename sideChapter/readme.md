@@ -1,4 +1,4 @@
-# Shoot-Target
+# Side Chapter
 
 Компонент создает оглавление из тегов h1-h6 с возможностью быстрого перехода при клике.
 
@@ -51,5 +51,5 @@ export default {
 ## Как выглядит
 На примере статьи
 
-![пример на статье](https://github.com/guest363/vue-component/blob/master/shoot-target/exemple/1.jpg)
+![пример на статье](https://github.com/guest363/vue-component/blob/master/side-chapter/example/1.jpg)
 

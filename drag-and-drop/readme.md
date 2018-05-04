@@ -94,8 +94,8 @@ export default {
 ## Как выглядит
 Инициализированный эллемент 
 
-![инит](https://github.com/guest363/vue-component/blob/master/drag-and-drop/exemple/1.jpg)
+![инит](https://github.com/guest363/vue-component/blob/master/drag-and-drop/example/1.jpg)
 
 Загруженно несколько картинок
 
-![несколько картинок](https://github.com/guest363/vue-component/blob/master/drag-and-drop/exemple/2.jpg)
+![несколько картинок](https://github.com/guest363/vue-component/blob/master/drag-and-drop/example/2.jpg)

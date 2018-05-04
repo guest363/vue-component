@@ -65,7 +65,7 @@ export default {
 ## Как выглядит
 Инициализированный элемент 
 
-![инит](https://github.com/guest363/vue-component/blob/master/shoot-target/exemple/1.jpg)
+![инит](https://github.com/guest363/vue-component/blob/master/shoot-target/example/1.jpg)
 
 Для входных данных
 {
@@ -73,7 +73,7 @@ export default {
         exercise: '1'
 }
 
-![3 выстрела](https://github.com/guest363/vue-component/blob/master/shoot-target/exemple/2.jpg)
+![3 выстрела](https://github.com/guest363/vue-component/blob/master/shoot-target/example/2.jpg)
 
 Для входных данных
 {
@@ -81,5 +81,5 @@ export default {
         exercise: '2'
 }
 
-![10 выстрелов](https://github.com/guest363/vue-component/blob/master/shoot-target/exemple/3.jpg)
+![10 выстрелов](https://github.com/guest363/vue-component/blob/master/shoot-target/example/3.jpg)
 
