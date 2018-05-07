@@ -14,22 +14,24 @@
 
 <script>
 const drag = {
-  enter: event => {
+  rootElem: "",
+  enter: function(event) {
     event.preventDefault();
     /* Если вы этого не сделаете, то браузер в конечном итоге откроет 
         файл, который вы перетаскиваете, вместо того, 
         чтобы отправить его в обработчик события drop. */
+    console.log(this);
     this.rootElem.classList.add("highlight");
     return "";
   },
-  drop: event => {
+  drop: function(event) {
     event.preventDefault();
     this.rootElem.classList.remove("highlight");
     const data = event.dataTransfer;
     const files = data.files; //FileList переданных файлов
     drag.handleFiles(files);
   },
-  leave: event => {
+  leave: function(event) {
     event.preventDefault();
     this.rootElem.classList.remove("highlight");
   },
@@ -37,7 +39,7 @@ const drag = {
     const files = event.srcElement.files;
     drag.handleFiles(files);
   },
-  over: event => {
+  over: function(event) {
     event.preventDefault();
     this.rootElem.classList.add("highlight");
   },
@@ -48,7 +50,9 @@ const drag = {
       reader.onloadend = function() {
         const img = document.createElement("img");
         img.src = reader.result;
-        const image = document.getElementById("dropZone--gallery").appendChild(img);
+        const image = document
+          .getElementById("dropZone--gallery")
+          .appendChild(img);
         image.className = "dropImg";
       };
     };
@@ -57,13 +61,12 @@ const drag = {
       encodeImageFileAsURL(element);
     });
   },
-  rootElem: "",
-  makeDragZone: elementID => {
+  makeDragZone: function(elementID) {
     this.rootElem = document.getElementById(elementID);
-    this.rootElem.addEventListener("dragenter", drag.enter, false);
-    this.rootElem.addEventListener("dragleave", drag.leave, false);
-    this.rootElem.addEventListener("dragover", drag.over, false);
-    this.rootElem.addEventListener("drop", drag.drop, false);
+    this.rootElem.addEventListener("dragenter", drag.enter.bind(drag), false);
+    this.rootElem.addEventListener("dragleave", drag.leave.bind(drag), false);
+    this.rootElem.addEventListener("dragover", drag.over.bind(drag), false);
+    this.rootElem.addEventListener("drop", drag.drop.bind(drag), false);
     document
       .getElementById("selectInput")
       .addEventListener("change", drag.selectInput, false);
@@ -112,7 +115,7 @@ dropZone--form--text {
   margin-top: 10px;
 }
 
->>> .dropImg {
+>>>.dropImg {
   width: 150px;
   margin-bottom: 10px;
   margin-right: 10px;
