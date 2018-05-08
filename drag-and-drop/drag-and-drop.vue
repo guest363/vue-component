@@ -35,7 +35,7 @@ const drag = {
     this.rootElem.classList.remove("highlight");
   },
   selectInput: event => {
-    const files = event.srcElement.files;
+    const files = event.target.files;
     drag.handleFiles(files);
   },
   over: function(event) {
@@ -66,9 +66,10 @@ const drag = {
     this.rootElem.addEventListener("dragleave", drag.leave.bind(drag), false);
     this.rootElem.addEventListener("dragover", drag.over.bind(drag), false);
     this.rootElem.addEventListener("drop", drag.drop.bind(drag), false);
-    document
-      .getElementById("selectInput")
-      .addEventListener("change", drag.selectInput, false);
+ /* или так const button = this.rootElem.firstChild.childNodes[2];
+    button.addEventListener("change", drag.selectInput, false); */
+    const button = document.getElementById("selectInput");
+    button.addEventListener("change", drag.selectInput, false);
   }
 };
 
