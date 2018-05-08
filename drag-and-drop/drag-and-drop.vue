@@ -66,10 +66,8 @@ const drag = {
     this.rootElem.addEventListener("dragleave", drag.leave.bind(drag), false);
     this.rootElem.addEventListener("dragover", drag.over.bind(drag), false);
     this.rootElem.addEventListener("drop", drag.drop.bind(drag), false);
- /* или так const button = this.rootElem.firstChild.childNodes[2];
-    button.addEventListener("change", drag.selectInput, false); */
     const button = document.getElementById("selectInput");
-    button.addEventListener("change", drag.selectInput, false);
+    button.addEventListener("change", drag.selectInput.bind(drag), false);
   }
 };
 
@@ -79,7 +77,24 @@ const DND = {
     return {};
   },
   computed: {},
-  props: ["data"],
+  props: {
+    data: {
+      type: Object,
+      default: function() {
+        return {
+          show: {
+            button: true,
+            limits: false
+          },
+          text: {
+            main: "Перетащите или выберите изображение",
+            button: "Выбрать изображения",
+            limits: ""
+          }
+        };
+      }
+    }
+  },
   methods: {},
   mounted() {
     drag.makeDragZone("dropZone");
