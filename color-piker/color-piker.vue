@@ -174,7 +174,7 @@ const pick = {
       document.getElementsByClassName(elementID)
     );
     this.rootElem.forEach(element => {
-      element.addEventListener("click", pick.click, false); // обработчик на событие клик
+      element.addEventListener("click", pick.click, false);
       element.isSelect = false;
     });
   }
@@ -184,36 +184,47 @@ const makeTooltip = {
   make: function(elem) {
     const target = elem.target;
     const tooltipElem = document.createElement("div");
-    const st = tooltipElem.style;
-    // Приходится использовать инлайн стиль из за области видимости
-    st.position = "fixed";
-    st.padding = "5px";
-    st.margin = "0";
-    st.border = "1px solid #7d7d7d";
-    st.textAlign = "center";
-    st.color = "#353434";
-    st.background = "#fff";
-    st.boxShadow = "1px rgba(0, 0, 0, .3)";
-    st.maxWidth = "200px";
-    st.fontSize = "12px";
-    const engProp = elem.target.getAttribute("value");
-    tooltipElem.innerHTML = `${dictionary[engProp]}`;
-    document.body.appendChild(tooltipElem);
-    const coords = target.getBoundingClientRect();
-    let left = coords.left + (target.offsetWidth - tooltipElem.offsetWidth) / 2;
-    if (left < 0) left = 0; // не вылезать за левую границу окна
-    let top = coords.top - tooltipElem.offsetHeight - 10;
-    if (top < 0) {
-      // не вылезать за верхнюю границу окна
-      top = coords.top + target.offsetHeight + 5;
-    }
-    tooltipElem.style.left = left + "px";
-    tooltipElem.style.top = top + "px";
+    const set = {
+      style: style => {
+        // Приходится использовать инлайн стиль из за области видимости
+        style.position = "fixed";
+        style.padding = "5px";
+        style.margin = "0";
+        style.border = "1px solid #7d7d7d";
+        style.textAlign = "center";
+        style.color = "#353434";
+        style.background = "#fff";
+        style.boxShadow = "1px rgba(0, 0, 0, .3)";
+        style.maxWidth = "200px";
+        style.fontSize = "12px";
+        const engProp = elem.target.getAttribute("value");
+        tooltipElem.innerHTML = `${dictionary[engProp]}`;
+      },
+      text: text => {
+        const engProp = elem.target.getAttribute("value");
+        text = `${dictionary[engProp]}`;
+      },
+      coordinate: coordinate => {
+        let left =
+          coordinate.left + (target.offsetWidth - tooltipElem.offsetWidth) / 2;
+        if (left < 0) {
+          left = 0;
+        }
+        let top = coordinate.top - tooltipElem.offsetHeight - 9;
+        tooltipElem.style.left = left + "px";
+        tooltipElem.style.top = top + "px";
+      }
+    };
+    set.style(tooltipElem.style);
+    set.text(tooltipElem.innerHTML);
+    target.appendChild(tooltipElem);
+    set.coordinate(target.getBoundingClientRect());
     this.showingTooltip = tooltipElem;
   },
   del: function(elem) {
     if (this.showingTooltip) {
-      document.body.removeChild(this.showingTooltip);
+      const target = elem.target;
+      target.removeChild(this.showingTooltip);
       this.showingTooltip = null;
     }
   }
@@ -224,7 +235,16 @@ const colorPiker = {
     return {};
   },
   computed: {},
-  props: ["data"],
+  props: {
+    data: {
+      type: Object,
+      default: function() {
+        return {
+          color: ["black", "grey", "saddlebrown", "whitesmoke", "navajowhite"]
+        };
+      }
+    }
+  },
   methods: {
     whatIsSelect: () => {
       return pick.whatIsSelect();
