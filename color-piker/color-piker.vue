@@ -185,7 +185,7 @@ const makeTooltip = {
     const target = elem.target;
     const tooltipElem = document.createElement("div");
     const st = tooltipElem.style;
-    // Приходится использовать инлайн стиль из за области видимости postcss
+    // Приходится использовать инлайн стиль из за области видимости
     st.position = "fixed";
     st.padding = "5px";
     st.margin = "0";
@@ -196,14 +196,12 @@ const makeTooltip = {
     st.boxShadow = "1px rgba(0, 0, 0, .3)";
     st.maxWidth = "200px";
     st.fontSize = "12px";
-    const engProp = elem.path[0].getAttribute("value");
+    const engProp = elem.target.getAttribute("value");
     tooltipElem.innerHTML = `${dictionary[engProp]}`;
     document.body.appendChild(tooltipElem);
     const coords = target.getBoundingClientRect();
-
     let left = coords.left + (target.offsetWidth - tooltipElem.offsetWidth) / 2;
     if (left < 0) left = 0; // не вылезать за левую границу окна
-
     let top = coords.top - tooltipElem.offsetHeight - 10;
     if (top < 0) {
       // не вылезать за верхнюю границу окна
