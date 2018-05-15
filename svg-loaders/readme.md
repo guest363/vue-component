@@ -55,5 +55,5 @@ export default {
 ## Как выглядит
 Пример с кругами
 
-![пример на статье](https://github.com/guest363/vue-component/blob/master/side-chapter/example/1.gif)
+![Пример с кругами](https://github.com/guest363/vue-component/blob/master/svg-loaders/example/1.gif)
 
