@@ -4,7 +4,8 @@
   "description": "Reusable Vue.js component for common purpose",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha",
+    "test-course": "mocha --compilers js:babel-core/register ./course-cb-rf/test/test.js "
   },
   "repository": {
     "type": "git",
@@ -20,5 +21,17 @@
   "bugs": {
     "url": "https://github.com/guest363/vue-component/issues"
   },
-  "homepage": "https://github.com/guest363/vue-component#readme"
+  "homepage": "https://github.com/guest363/vue-component#readme",
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-preset-env": "^1.7.0",
+    "chai": "^4.1.2",
+    "mocha-jsdom": "^2.0.0",
+    "xmlhttprequest": "^1.8.0"
+  },
+  "babel": {
+    "presets": [
+      "env"
+    ]
+  }
 }
