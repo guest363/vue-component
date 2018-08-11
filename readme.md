@@ -5,12 +5,20 @@
 ## Require
 Vue.js версии 2
 
-# Color-piker
+# Превью компонентов
+* [Color-piсker](#Color-piсker)
+* [Course-cb-rf](#Course-cb-rf)
+* [Drag-and-Drop](#Drag-and-Drop)
+* [Shoot-target](#Shoot-target)
+* [Side-chapter](#Side-chapter)
+* [Svg-loader](#Svg-loader)
+
+# Color-piсker
 Компонент выводит палитру заданных цветов. 
 
 По цветам можно кликать, компонент возвращает названия выбранных цветов. 
 
-![5 цветов ](https://github.com/guest363/vue-component/blob/master/color-piker/example/1.jpg)
+![5 цветов ](https://github.com/guest363/vue-component/blob/master/color-piсker/example/1.jpg)
 
 # Course-cb-rf
 Компонент выводит курсы валют на текущую дату по отношению к рублю.

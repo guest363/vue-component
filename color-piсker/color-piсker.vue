@@ -229,8 +229,8 @@ const makeTooltip = {
     }
   }
 };
-const colorPiker = {
-  name: "color-piker",
+const colorPicker = {
+  name: "color-piсker",
   data: () => {
     return {};
   },
@@ -259,7 +259,7 @@ const colorPiker = {
     });
   }
 };
-export default colorPiker;
+export default colorPicker;
 </script>
 
 <style scoped>
