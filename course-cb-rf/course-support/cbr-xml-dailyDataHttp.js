@@ -1,5 +1,18 @@
 const xhr = new XMLHttpRequest();
 
+/**
+ * Получает данные о курсе с сайта www.cbr-xml-daily.ru.
+ * Так как этот сайт может выдавать ответ в формате JSON
+ * общение с ним значительно проще.
+ * Плюс в ответе изначально есть курс за предыдущий день а значит
+ * запрос будет только один.
+ * Нормализация обьекта происходит на месте, так как она значительно проще чем
+ * для XML файла
+ *
+ * @param {Array} cashName Массив сокращенных наименований валют.
+ * @return {promise} Возвращает промисс, который по своему завершению вернет 
+ *                   обьект для виджета.
+ */
 export default cashName => {
     const promise = new Promise((resolve, reject) => {
         xhr.onreadystatechange = () => {
@@ -9,14 +22,12 @@ export default cashName => {
                 console.log(`ошибка ${(xhr.status ? xhr.statusText : 'запрос не удался')}`);
             } else {
                 try {
-                    const roundCash = (name, val) => Math.round(respons.Valute[name][val] * 1000) / 1000;
-                    const isGrow = name => roundCash(name, 'Value') > roundCash(name, 'Previous');
                     const respons = JSON.parse(xhr.responseText);
                     const obj = cashName.map(item => ({
                         'name': item,
-                        current: roundCash(item, 'Value'),
-                        previous: roundCash(item, 'Previous'),
-                        isGrow: isGrow(item)
+                        current: respons.Valute[item]['Value'],
+                        previous: respons.Valute[item]['Previous'],
+                        isGrow: respons.Valute[item]['Value'] > respons.Valute[item]['Previous']
                     }));
                     resolve(obj);
                 } catch (error) {

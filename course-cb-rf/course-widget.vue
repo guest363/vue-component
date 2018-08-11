@@ -4,7 +4,7 @@
         <div v-for='item in cashVaule' v-bind:key="item.name">
             <div class="cash--text">
                 <span class="cash--text--ico" :class="iconClass(item.name)"></span>
-                <span>{{item.current}}</span>
+                <span class="cash--text--text">{{item.current}}</span>
                 <span class="cash--text--isgrow" :class="isGrow(item.isGrow)"></span>
             </div>      
         </div>
@@ -31,11 +31,15 @@ export default {
             ["USD", "EUR", "GBP", "INR", "JPY", "KRW"].indexOf(element) === -1
           ) {
             isCorrect = false;
-            console.log(
+            console.error(
               'допустимы только значения из множества "USD", "EUR", "GBP", "INR", "JPY", "KRW"'
             );
           }
         });
+        if (typeof value.round !== "number") {
+          console.error("параметр round должен быть числом!");
+          isCorrect = false;
+        }
         return isCorrect;
       },
       default: function() {
@@ -45,7 +49,8 @@ export default {
             default: ["USD", "EUR"]
           },
           showHeader: true,
-          textHeader: "Курсы валют"
+          textHeader: "Курсы валют",
+          round: 1000
         };
       }
     }
@@ -60,10 +65,12 @@ export default {
     }
   },
   mounted() {
-    curs(this.prop.cash).then(item => (this.cashVaule = item));
+    curs(this.prop.cash, this.prop.round).then(item => (this.cashVaule = item));
     /* Обновление курсов каждые 10 минут */
     setInterval(() => {
-      curs(this.prop.cash).then(item => (this.cashVaule = item));
+      curs(this.prop.cash, this.prop.round).then(
+        item => (this.cashVaule = item)
+      );
     }, 600000);
   }
 };
@@ -153,6 +160,12 @@ export default {
 .cash--text--ico,
 .cash--text--isgrow {
   font-family: "fontello-cash";
+}
+.cash--text--ico {
+  width: 70px;
+}
+.cash--text--text {
+  width: 150px;
 }
 .cash--wrapper {
   display: flex;

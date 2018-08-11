@@ -1,6 +1,21 @@
 import xmlParcer from './xml-parcer.js';
 const xhr = new XMLHttpRequest();
 
+/**
+ * Получает данные о курсе с сайта ЦБ РФ за выбранную дату.
+ * В случае не доступности сайта ЦБ пробует порлучить данные 
+ * с сайта www.cbr-xml-daily.ru.
+ *
+ * @param {Function} parceFunc Функция парсинга ответа (приведения к обьекту).
+ *                             Передается в каррированном варианте.
+ * @param {string} day сформированная строка запроса на определенную дату.
+ *                     если она будет пустой "" то возвращается курс на текущий день.
+ * @param {Array} cashName Массив сокращенных наименований валют.
+ * @param {object} obj Обьект typeOfRequest у которого вызывается метод 'cbr-xml-daily'
+ *                     в случае не возможности получить данные с сайта ЦБ.
+ * @return {promise} Возвращает промисс, который по своему завершению вернет 
+ *                   обьект для виджета.
+ */
 export default (parceFunc, day, cashName, obj) => {
     const promise = new Promise((resolve, reject) => {
     xhr.open(

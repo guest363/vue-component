@@ -1,3 +1,10 @@
+/**
+ * Парсит XML документ.
+ * Имеет fallback для IE.
+ *
+ * @param {XML} xmlDoc Полученный с сайта XML документ.
+ * @return {string} Распарсенная строка.
+ */
 export default item => {
     let xmlDoc;
     try {
