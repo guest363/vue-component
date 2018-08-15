@@ -27,6 +27,18 @@ Vue.js версии 2
 
 ![для двух валют](https://github.com/guest363/vue-component/blob/master/course-cb-rf/example/1.jpg)
 
+# suggestionDaData
+
+Выводит 2 input в которых вводимые данные дополняются подсказками от сервиса DaData.
+
+Инициализация
+
+![Инициализация](https://github.com/guest363/vue-component/blob/master/suggestionDaData/example/1.png)
+
+Пример подсказки
+
+![Пример подсказки](https://github.com/guest363/vue-component/blob/master/suggestionDaData/example/2.png)
+
 # Drag-and-Drop
 Компонент создает поле в которое можно перемещать drag-and-drop изображения или же выбирать их через меню проводника. 
 
