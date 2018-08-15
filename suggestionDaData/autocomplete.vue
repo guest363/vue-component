@@ -24,7 +24,7 @@
 <script>
 import xhrCity from './support/reqDaDataCity.js';
 import xhrAddress from './support/reqDaDataAddress.js';
-import trottle from "../trottle.js";
+import trottle from "./support/trottle.js";
 
 export default {
   data: () => {
