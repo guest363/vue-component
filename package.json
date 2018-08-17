@@ -4,7 +4,7 @@
   "description": "Reusable Vue.js component for common purpose",
   "main": "index.js",
   "scripts": {
-    "test": "rm -rf tmp/ && karma start karma.conf.js"
+    "test": "karma start karma.conf.js"
   },
   "repository": {
     "type": "git",
