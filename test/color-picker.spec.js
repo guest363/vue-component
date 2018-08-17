@@ -2,7 +2,7 @@
 import {
   mount
 } from 'vue-test-utils';
-import colorPicker from '../color-piсker/color-piсker.vue';
+import colorPicker from '../src/color-piсker/color-piсker.vue';
 
 describe(`colorPickerDefault`, () => {
   /* Монтирование и прикрепление к DOM */

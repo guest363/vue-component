@@ -10,7 +10,11 @@ require('babel-polyfill');
 
 module.exports = {
     cache: true,
-    entry: ['babel-polyfill'],
+    entry: ['babel-polyfill', './index.js'],
+    output: {
+      filename: 'bundle.js',
+      path: path.resolve(__dirname, 'dist')
+    },
     mode: 'development',
     devtool: '#cheap-module-eval-source-map',
     resolve: {
