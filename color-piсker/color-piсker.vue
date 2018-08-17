@@ -21,7 +21,7 @@ export default {
         value.color.forEach(element => {
           if (!propValidator(element)) {
             isCorrect = false;
-            console.error('допустимы только значения определенных цветов, см. colorDictionary.js');
+            throw new Error("допустимы только значения определенных цветов, см. colorDictionary.js");
           }
         });
         return isCorrect;

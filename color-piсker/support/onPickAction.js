@@ -26,7 +26,7 @@ export default {
       if (elem.classList.contains(this.className)) {
         return [...acc, elem.getAttribute("value")];
       } else return acc;
-    }, []);
+    }, []).reverse();
   },
   /**
    * Навешивает событие click на каждый элемент цвета

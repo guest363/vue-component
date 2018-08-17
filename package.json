@@ -4,9 +4,7 @@
   "description": "Reusable Vue.js component for common purpose",
   "main": "index.js",
   "scripts": {
-    "test": "mocha",
-    "test-course": "mocha --compilers js:babel-core/register ./course-cb-rf/test/test.js",
-    "test-picker": "mocha --compilers js:babel-core/register ./color-picker/test/test.js"
+    "test": "rm -rf tmp/ && karma start karma.conf.js"
   },
   "repository": {
     "type": "git",
@@ -25,15 +23,35 @@
   "homepage": "https://github.com/guest363/vue-component#readme",
   "devDependencies": {
     "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.5",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.7.0",
     "chai": "^4.1.2",
+    "css-loader": "^1.0.0",
+    "extract-text-webpack-plugin": "^3.0.2",
+    "file-loader": "^1.1.11",
     "jasmine-core": "^3.2.0",
     "karma": "^3.0.0",
+    "karma-chai": "^0.1.0",
     "karma-chrome-launcher": "^2.2.0",
+    "karma-coverage": "^1.1.2",
     "karma-firefox-launcher": "^1.1.0",
     "karma-jasmine": "^1.1.2",
+    "karma-mocha": "^1.3.0",
+    "karma-mocha-reporter": "^2.2.5",
+    "karma-phantomjs-launcher": "^1.0.4",
     "karma-safari-launcher": "^1.0.0",
+    "karma-sourcemap-loader": "^0.3.7",
+    "karma-webpack": "^3.0.0",
+    "mocha": "^5.2.0",
     "mocha-jsdom": "^2.0.0",
+    "phantomjs": "^2.1.7",
+    "phantomjs-prebuilt": "^2.1.16",
+    "vue-loader": "^15.3.0",
+    "vue-template-compiler": "^2.5.17",
+    "vue-test-utils": "^1.0.0-beta.11",
+    "webpack": "^4.16.5",
     "xmlhttprequest": "^1.8.0"
   },
   "babel": {
