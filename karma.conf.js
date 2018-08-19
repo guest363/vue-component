@@ -1,4 +1,9 @@
 var webpackConfig = require('./dev-webpack.js');
+/* 
+Если хочется запускать тесты только в консоли используй ChromeHeadless
+так как с PhantomJS будет много мороки 
+*/
+
 module.exports = function (config) {
   config.set({
     // конфигурация репортов о покрытии кода тестами
@@ -24,12 +29,19 @@ module.exports = function (config) {
         random: false
       }
     },
+    customLaunchers: {
+      'PhantomJS_custom': {
+        base: 'PhantomJS',
+        debug: true,
+      },
+    },
     // spec файлы, условимся называть по маске **_*.spec.js_**
     files: [
       'test/*.spec.js'
     ],
-    browsers: ['Chrome'],
+    browsers: ['ChromeHeadless'],
     frameworks: ['jasmine'],
+    singleRun: false,
     // репортеры необходимы для  наглядного отображения результатов
     reporters: ['progress'],
     preprocessors: {

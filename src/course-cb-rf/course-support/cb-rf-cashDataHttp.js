@@ -11,12 +11,10 @@ const xhr = new XMLHttpRequest();
  * @param {string} day сформированная строка запроса на определенную дату.
  *                     если она будет пустой "" то возвращается курс на текущий день.
  * @param {Array} cashName Массив сокращенных наименований валют.
- * @param {object} obj Обьект typeOfRequest у которого вызывается метод 'cbr-xml-daily'
- *                     в случае не возможности получить данные с сайта ЦБ.
  * @return {promise} Возвращает промисс, который по своему завершению вернет 
  *                   обьект для виджета.
  */
-export default (parceFunc, day, cashName, obj) => {
+export default (parceFunc, day, cashName) => {
     const promise = new Promise((resolve, reject) => {
     xhr.open(
         "GET",
@@ -24,12 +22,12 @@ export default (parceFunc, day, cashName, obj) => {
         true
     );
     xhr.onreadystatechange = () => {
-        if (xhr.readyState != 4) return;
+        if (xhr.readyState != 4) reject(new Error("Запрос не завершен"));
         // Ждем пока запрос не завершиться
         if (xhr.status != 200) {
-            console.log(`ошибка ${(xhr.status ? xhr.statusText : 'запрос не удался')}`);
+            console.log(xhr.status);
             console.log('Получить данные с сайта ЦБ РФ не вышло, загружаю данные с cbr-xml-daily');
-            obj['cbr-xml-daily']();
+            reject(`ошибка ${(xhr.status ? xhr.statusText : 'запрос не удался для ЦБ РФ')}`);
         } else {
             try {
                 const xmlDoc = xmlParcer(xhr.responseText);

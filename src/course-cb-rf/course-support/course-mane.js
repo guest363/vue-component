@@ -28,17 +28,21 @@ export default (cashName = ['USD', 'EUR'], round) => {
     const typeOfRequest = {
       'ЦБ': () => {
         /* today это частично примененная функция parceCash */
-        cbHttpReq(parceCash, '', cashName, typeOfRequest).then(today => {
-          cbHttpReq(today, dayReq(yesterday), cashName, typeOfRequest).then(result => {
+        return cbHttpReq(parceCash, '', cashName).then(
+          today => {
+          cbHttpReq(today, dayReq(yesterday), cashName).then(result => {
             resolve(normolize(round, result));
           });
-        })
+        }, 
+          error => typeOfRequest['cbr-xml-daily']()
+        );
       },
       'cbr-xml-daily': () => {
-        dailyHttpReq(cashName).then(result => resolve(normolize(round, result)));
+        return dailyHttpReq(cashName).then(result => resolve(normolize(round, result)));
       }
     };
-    /*  */
+
+
     typeOfRequest['ЦБ']();
 
   });

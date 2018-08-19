@@ -26,28 +26,29 @@ export default {
       validator: function(value) {
         // Значение каждого эл. массива должно соответствовать одной из этих строк
         let isCorrect = true;
+        if(!Array.isArray(value.cash)){
+            isCorrect = false;
+            throw new Error('cash должен быть массивом!');
+        };
+
+        if (typeof value.round !== "number" || value.round === void(0)) {
+           throw new Error("параметр round должен быть числом!");
+          isCorrect = false;
+        };
+
         value.cash.forEach(element => {
           if (
             ["USD", "EUR", "GBP", "INR", "JPY", "KRW"].indexOf(element) === -1
           ) {
             isCorrect = false;
-            console.error(
-              'допустимы только значения из множества "USD", "EUR", "GBP", "INR", "JPY", "KRW"'
-            );
+            throw new Error('допустимы только значения из множества "USD", "EUR", "GBP", "INR", "JPY", "KRW"');
           }
         });
-        if (typeof value.round !== "number") {
-          console.error("параметр round должен быть числом!");
-          isCorrect = false;
-        }
         return isCorrect;
       },
       default: function() {
         return {
-          cash: {
-            type: Array,
-            default: ["USD", "EUR"]
-          },
+          cash: ["USD", "EUR"],
           showHeader: true,
           textHeader: "Курсы валют",
           round: 1000

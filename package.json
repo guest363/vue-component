@@ -4,7 +4,9 @@
   "description": "Reusable Vue.js component for common purpose",
   "main": "index.js",
   "scripts": {
-    "test": "karma start karma.conf.js"
+    "test": "karma start karma.conf.js",
+    "build": "webpack --config webpack.prod.js",
+    "push": "git push origin master"
   },
   "repository": {
     "type": "git",
@@ -15,22 +17,28 @@
     "js",
     "web"
   ],
-  "author": "Oleg Moiseev",
+  "author": "Oleg Moiseev <guest363@gmail.com>",
   "license": "Apache",
   "bugs": {
     "url": "https://github.com/guest363/vue-component/issues"
   },
   "homepage": "https://github.com/guest363/vue-component#readme",
   "devDependencies": {
+    "autoprefixer": "^9.1.1",
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.5",
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.7.0",
+    "babel-preset-es2015": "^6.24.1",
     "chai": "^4.1.2",
+    "clean-webpack-plugin": "^0.1.19",
+    "copy-webpack-plugin": "^4.5.2",
     "css-loader": "^1.0.0",
     "extract-text-webpack-plugin": "^3.0.2",
     "file-loader": "^1.1.11",
+    "html-webpack-plugin": "^3.2.0",
+    "jasmine-ajax": "^3.4.0",
     "jasmine-core": "^3.2.0",
     "karma": "^3.0.0",
     "karma-chai": "^0.1.0",
@@ -44,14 +52,18 @@
     "karma-safari-launcher": "^1.0.0",
     "karma-sourcemap-loader": "^0.3.7",
     "karma-webpack": "^3.0.0",
+    "mini-css-extract-plugin": "^0.4.1",
     "mocha": "^5.2.0",
     "mocha-jsdom": "^2.0.0",
-    "phantomjs": "^2.1.7",
+    "optimize-css-assets-webpack-plugin": "^5.0.0",
+    "phantomjs": "^2.1.1",
     "phantomjs-prebuilt": "^2.1.16",
+    "postcss-loader": "^3.0.0",
     "vue-loader": "^15.3.0",
     "vue-template-compiler": "^2.5.17",
     "vue-test-utils": "^1.0.0-beta.11",
     "webpack": "^4.16.5",
+    "webpack-cli": "^3.1.0",
     "xmlhttprequest": "^1.8.0"
   },
   "babel": {

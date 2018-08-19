@@ -19,7 +19,8 @@ export default cashName => {
             if (xhr.readyState != 4) return;
             // Ждем пока запрос не завершиться
             if (xhr.status != 200) {
-                console.log(`ошибка ${(xhr.status ? xhr.statusText : 'запрос не удался')}`);
+                console.error(`ошибка ${(xhr.status ? xhr.statusText : 'запрос не удался для dailyCB')}`);
+                resolve(`ошибка ${(xhr.status ? xhr.statusText : 'запрос не удался')}`);
             } else {
                 try {
                     const respons = JSON.parse(xhr.responseText);
