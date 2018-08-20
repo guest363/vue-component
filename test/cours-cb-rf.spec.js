@@ -17,7 +17,8 @@ describe('Тестируем HTTP запрос к ЦБ РФ', () => {
     });
     it('Запрос должен хоть как-то завершиться', async () => {
         const req = [x => x, '', ['EUR']];
-        await expectAsync(httpCB(req)).toBeResolved();
+        await httpCB(req);
+        expect(jasmine.Ajax.requests.mostRecent().url).toBe('https://cors-anywhere.herokuapp.com/www.cbr.ru/scripts/XML_daily.asp');
     });
 });
 

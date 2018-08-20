@@ -25,9 +25,8 @@ export default (parceFunc, day, cashName) => {
         if (xhr.readyState != 4) reject(new Error("Запрос не завершен"));
         // Ждем пока запрос не завершиться
         if (xhr.status != 200) {
-            console.log(xhr.status);
-            console.log('Получить данные с сайта ЦБ РФ не вышло, загружаю данные с cbr-xml-daily');
-            reject(`ошибка ${(xhr.status ? xhr.statusText : 'запрос не удался для ЦБ РФ')}`);
+            console.error('Получить данные с сайта ЦБ РФ не вышло, загружаю данные с cbr-xml-daily');
+            reject(`ошибка ${(xhr.status ? xhr.statusText : `запрос не удался для ЦБ РФ xhr.status = ${xhr.status}`)}`);
         } else {
             try {
                 const xmlDoc = xmlParcer(xhr.responseText);
