@@ -5,6 +5,9 @@
 ## Require
 Vue.js версии 2
 
+## Install
+Компоненты находятся в файле ./dist/vue-component.js
+
 # Превью компонентов
 * [Color-piсker](#Color-piсker)
 * [Course-cb-rf](#Course-cb-rf)
