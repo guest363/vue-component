@@ -16,7 +16,7 @@ require('babel-polyfill');
 
 module.exports = {
     cache: true,
-    entry: ['babel-polyfill', './index.js'],
+    entry: './src/main.js',
     output: {
       filename: 'bundle.js',
       path: path.resolve(__dirname, 'dist')
