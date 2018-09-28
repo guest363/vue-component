@@ -44,6 +44,7 @@ module.exports = {
           {
             test: /\.css$/,
             use: [
+              MiniCssExtractPlugin.loader,
               { loader: "css-loader" }
             ]
           },
@@ -64,6 +65,16 @@ module.exports = {
         filename: "index.html",
         template: "index.html",
         inject: true
+      }),
+      new MiniCssExtractPlugin({
+        filename: "./css/[name].css",
+        chunkFilename: "./css/[id].css"
+      }),
+      new OptimizeCSSAssetsPlugin({
+        assetNameRegExp: /\.css$/g,
+        cssProcessor: require("cssnano"),
+        cssProcessorOptions: { discardComments: { removeAll: true } },
+        canPrint: true
       }),
       ],
     };
