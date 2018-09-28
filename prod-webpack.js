@@ -22,7 +22,6 @@ module.exports = {
       path: path.resolve(__dirname, 'dist')
     },
     mode: "production",
-    devtool: '#cheap-module-eval-source-map',
     resolve: {
       alias: {
         'vue$': 'vue/dist/vue.esm.js'
@@ -31,16 +30,17 @@ module.exports = {
     },
     module: {
         rules: [{
-            test: /\.vue$/,
-            loader: 'vue-loader',
-            exclude: path.resolve(__dirname, 'node_modules'),
-          },
-          {
-            test: /\.js$/,
-            loader: 'babel-loader',
-            exclude: path.resolve(__dirname, 'node_modules'),
-            include: path.resolve(__dirname, "src")
-          },
+          test: /\.vue$/,
+          loader: "vue-loader",
+          exclude: path.resolve(__dirname, "node_modules"),
+          include: path.resolve(__dirname, "src")
+        },
+        {
+          test: /\.js$/,
+          loader: "babel-loader",
+          exclude: path.resolve(__dirname, "node_modules"),
+          include: path.resolve(__dirname, "src")
+        },
           {
             test: /\.css$/,
             use: [
@@ -58,7 +58,13 @@ module.exports = {
         ],
     },
     plugins: [
-        new VueLoaderPlugin()
+      new CleanWebpackPlugin(["dist"]),
+      new VueLoaderPlugin(),
+      new HtmlWebpackPlugin({
+        filename: "index.html",
+        template: "index.html",
+        inject: true
+      }),
       ],
     };
   
