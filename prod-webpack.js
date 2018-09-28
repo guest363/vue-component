@@ -19,7 +19,7 @@ module.exports = {
     entry: './src/main.js',
     output: {
       filename: 'bundle.js',
-      path: path.resolve(__dirname, 'dist')
+      path: path.resolve(__dirname, 'docs')
     },
     mode: "production",
     resolve: {
@@ -58,7 +58,7 @@ module.exports = {
         ],
     },
     plugins: [
-      new CleanWebpackPlugin(["dist"]),
+      new CleanWebpackPlugin(["docs"]),
       new VueLoaderPlugin(),
       new HtmlWebpackPlugin({
         filename: "index.html",
