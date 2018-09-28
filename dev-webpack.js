@@ -4,25 +4,20 @@
 // Depends
 const webpack = require('webpack');
 const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
+var MiniCssExtractPlugin = require('mini-css-extract-plugin');
 require('babel-polyfill');
 
 
 module.exports = {
     cache: true,
-    entry: ['babel-polyfill', './index.js'],
+    entry: './src/main.js',
     output: {
       filename: 'bundle.js',
       path: path.resolve(__dirname, 'dist')
     },
     mode: 'development',
-    devtool: '#cheap-module-eval-source-map',
-    resolve: {
-      alias: {
-        'vue$': 'vue/dist/vue.esm.js'
-      },
-      extensions: ['*', '.js', '.vue', '.json'],
-    },
     module: {
         rules: [{
             test: /\.vue$/,
@@ -37,7 +32,10 @@ module.exports = {
           {
             test: /\.css$/,
             use: [
-              { loader: "css-loader" }
+              process.env.NODE_ENV !== 'production'
+                ? 'vue-style-loader'
+                : MiniCssExtractPlugin.loader,
+              'css-loader'
             ]
           },
           {
@@ -51,6 +49,27 @@ module.exports = {
         ],
     },
     plugins: [
-      new VueLoaderPlugin()
+      new webpack.HotModuleReplacementPlugin(),
+      new VueLoaderPlugin(),
+      new HtmlWebpackPlugin({
+        filename: 'index.html',
+        template: 'index.html',
+        inject: true
+      }),
+      new MiniCssExtractPlugin({
+        filename: 'style.css'
+      })
     ],
+    devServer: {
+      contentBase: path.join(__dirname, "dist"),
+      port: 8080,
+      host: '127.0.0.1',
+      open: true,
+      inline: true,
+      hot: true,
+      noInfo: false,
+      quiet: false,
+      stats: 'errors-only'
+    },
+    devtool: '#cheap-module-eval-source-map',
   };

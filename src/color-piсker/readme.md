@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import colorPicker from '/path/color-piker.vue';
+import colorPicker from '/path/color-piсker.vue';
 
 export default {
   name: "Name",

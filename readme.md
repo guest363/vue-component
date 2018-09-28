@@ -8,6 +8,7 @@ Vue.js версии 2
 # Превью компонентов
 * [Color-piсker](#Color-piсker)
 * [Course-cb-rf](#Course-cb-rf)
+* [Suggestion DaData](#suggestionDaData)
 * [Drag-and-Drop](#Drag-and-Drop)
 * [Shoot-target](#Shoot-target)
 * [Side-chapter](#Side-chapter)

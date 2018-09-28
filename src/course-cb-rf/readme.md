@@ -47,7 +47,7 @@
 </template>
 
 <script>
-import courseWidget from './path/course-widget.vue.vue';
+import courseWidget from './path/course-widget.vue';
 
 export default {
   name: "Name",
