@@ -2,7 +2,7 @@
 
 Набор компонентов, который можно использовать в своих целях.
 
-![Demo ](https://guest363.github.io/vue-component/)
+[Demo](https://guest363.github.io/vue-component/)
 ## Require
 Vue.js версии 2
 
