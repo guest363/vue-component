@@ -2,11 +2,14 @@
 
 Набор компонентов, который можно использовать в своих целях.
 
+![Demo ](https://guest363.github.io/vue-component/)
 ## Require
 Vue.js версии 2
 
 ## Install
-Компоненты находятся в файле ./dist/vue-component.js
+Копируя нужный компонент из исходников или импоррт из ./build/bundle.js
+
+// export { colorPicker, courseCB, dateFallback, DND, shootTarget, sideChapter, suggestionDadata, svgLoader};
 
 # Превью компонентов
 * [Color-piсker](#Color-piсker)
