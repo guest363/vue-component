@@ -1,150 +1,275 @@
 <template>
-    <div id="dropZone">
-            <form class="dropZone--form">
-                <p class="dropZone--form--text">{{data.text.main}}</p>
-                <input type="file" class="hide" id="selectInput" multiple accept="image/*" >
-                <label v-show="data.show.button" class="dropZone--form--button" for="selectInput">{{data.text.button}}</label>
-                <p v-show="data.show.limits" class="dropZone--form--text">{{data.text.limits}}</p>
-            </form>
-            <!-- Локальная загрузка довольна быстрая, полоса загрузки не требуется
-             <progress id="dropZone--progress-bar" max=100 value=0></progress> -->
-            <div id="dropZone--gallery"></div>
+  <div
+    class="dropZone"
+    v-on:dragenter="enter($event)"
+    v-on:dragleave="leave($event)"
+    v-on:dragover="over($event)"
+    v-on:drop="drop($event)"
+  >
+    <form class="flex-center dropZone--form">
+      <p class="dropZone--form--text">{{data.text.main}}</p>
+      <label v-show="data.show.button" class="common--button dropZone--form--button flex-center">
+        {{data.text.button}}
+        <input
+          v-on:change="selectInput($event)"
+          type="file"
+          class="dropZone--hide"
+          title="Загрузите одну или несколько фотографий"
+          required
+          multiple
+          accept="image/*"
+        >
+      </label>
+      <p v-show="data.show.limits" class="dropZone--form--text--limits">{{data.text.limits}}</p>
+    </form>
+    <!-- Локальная загрузка довольна быстрая, полоса загрузки не требуется
+    <progress id="dropZone--progress-bar" max=100 value=0></progress>-->
+    <div class="dropZone--gallery">
+      <div class="dropZone--gallery--thumbnail"></div>
+      <div class="dropZone--gallery--full"></div>
     </div>
+  </div>
 </template>
 
 <script>
-const drag = {
-  rootElem: "",
-  enter: function(event) {
-    event.preventDefault();
-    /* Если вы этого не сделаете, то браузер в конечном итоге откроет 
-        файл, который вы перетаскиваете, вместо того, 
-        чтобы отправить его в обработчик события drop. */
-    this.rootElem.classList.add("highlight");
-    return "";
-  },
-  drop: function(event) {
-    event.preventDefault();
-    this.rootElem.classList.remove("highlight");
-    const data = event.dataTransfer;
-    const files = data.files; //FileList переданных файлов
-    drag.handleFiles(files);
-  },
-  leave: function(event) {
-    event.preventDefault();
-    this.rootElem.classList.remove("highlight");
-  },
-  selectInput: event => {
-    const files = event.target.files;
-    drag.handleFiles(files);
-  },
-  over: function(event) {
-    event.preventDefault();
-    this.rootElem.classList.add("highlight");
-  },
-  handleFiles: files => {
-    const encodeImageFileAsURL = element => {
-      const reader = new FileReader();
-      reader.readAsDataURL(element);
-      reader.onloadend = function() {
-        const img = document.createElement("img");
-        img.src = reader.result;
-        const image = document
-          .getElementById("dropZone--gallery")
-          .appendChild(img);
-        image.className = "dropImg";
-      };
-    };
+import Compressor from "compressorjs";
 
-    [...files].forEach(element => {
-      encodeImageFileAsURL(element);
-    });
-  },
-  makeDragZone: function(elementID) {
-    this.rootElem = document.getElementById(elementID);
-    this.rootElem.addEventListener("dragenter", drag.enter.bind(drag), false);
-    this.rootElem.addEventListener("dragleave", drag.leave.bind(drag), false);
-    this.rootElem.addEventListener("dragover", drag.over.bind(drag), false);
-    this.rootElem.addEventListener("drop", drag.drop.bind(drag), false);
-    const button = document.getElementById("selectInput");
-    button.addEventListener("change", drag.selectInput.bind(drag), false);
-  }
-};
-
-const DND = {
+/**
+ * Создает область для drag and drop загрузки изображения,
+ * стили встроены
+ * @emits dropImage имитит событие "dropImage" при
+ * каждом добавлении картинки, в этом событии картинка
+ * сжимается до большого размера. Пример подписи на
+ * событие у родителя
+ * v-on:dropImage="imageHendler('SHELTER', $event)"
+ * @emits dropThumbnail здесь сильно уменьшенное превью
+ * @requires Compressor для сжатия изображений
+ */
+export default {
   name: "drag-and-drop",
   data: () => {
-    return {};
+    return {
+      image: [],
+      thumbnail: []
+    };
   },
-  computed: {},
+  /** Параметры для инициализации компонента
+   * @param {object} data входные параметры для инициализации
+   * @param {object} data.show показ\скрытие отдельных эллементов
+   * @param {Boolean} data.show.button показ\скрытие кнопку выбора файлов, по умолчанию показать
+   * @param {Boolean} data.show.limits показ\скрытие строки с ограничениями, по умолчанию скрыть
+   * @param {object} data.text
+   * @param {object} data.text.main основной текст, поясняющий что можно делать с элементом
+   * @param {object} data.text.button текст для кнопки
+   * @param {object} data.text.limits текст ограничений
+   */
   props: {
     data: {
       type: Object,
       default: function() {
         return {
           show: {
-            button: true,
-            limits: false
+            button: {
+              type: Boolean,
+              default: true
+            },
+            limits: {
+              type: Boolean,
+              default: false
+            }
           },
           text: {
-            main: "Перетащите или выберите изображение",
-            button: "Выбрать изображения",
-            limits: ""
+            main: {
+              type: String,
+              default: "Перетащите или выберите изображение"
+            },
+            button: {
+              type: String,
+              default: "Выбрать изображения"
+            },
+            limits: {
+              type: String,
+              default: "Файлы до 2 мегабайт"
+            }
           }
         };
       }
     }
   },
-  methods: {},
-  mounted() {
-    drag.makeDragZone("dropZone");
+  methods: {
+    /**
+     * Прерывает дефолтные действия браузера.
+     * Если вы этого не сделаете, то браузер в конечном итоге откроет
+     * файл, который вы перетаскиваете, вместо того,
+     * чтобы отправить его в обработчик события drop.
+     */
+    defaultAсtion(event) {
+      event.preventDefault();
+      event.stopPropagation();
+    },
+    enter(event) {
+      this.defaultAсtion(event);
+      this.$el.classList.add("highlight");
+    },
+    drop(event) {
+      this.leave(event);
+      const files = event.dataTransfer.files; //FileList переданных файлов
+      this.handleFiles(files);
+    },
+    leave(event) {
+      this.defaultAсtion(event);
+      this.$el.classList.remove("highlight");
+    },
+    over(event) {
+      /* Аналогично событию enter */
+      this.enter(event);
+    },
+    selectInput(event) {
+      this.defaultAсtion(event);
+      const files = event.target.files;
+      this.handleFiles(files);
+    },
+    handleFiles(files) {
+      const vm = this;
+      /**
+       * Шаблон для работы с библиотекой Compressor
+       * @param {File} element файл который нужно сжать
+       * @param {Object} initParam
+       * @param {Number} initParam.quality степерь сжатия изображения, поумолчанию 0.85
+       * @param {String} initParam.width ширина изображения на выходе
+       * @param {String} initParam.height высота изображения на выходе
+       * @param {String} initParam.htmlAppendElem DOM элемент к которому прикрепится изображение
+       * @param {String} initParam.htmlAppendClass класс для прикрепленного изображения
+       * @param {Array} initParam.base64Result ссылка на массив где хранятся сжатые изображения в
+       * формате base64, они в последствии эмитятся родительскому эллементу
+       * @param {String} initParam.event имя события ['dropImage', 'dropThumbnail']
+       */
+      const compessorWorker = (element, initParam) => {
+        const imageContainer = this.$el.querySelector(
+          `.${initParam.htmlAppendElem}`
+        );
+        new Compressor(element, {
+          quality: initParam.quality,
+          maxWidth: initParam.width,
+          maxHeight: initParam.height,
+          success(result) {
+            const reader = new FileReader();
+            reader.readAsDataURL(result);
+            reader.onloadend = () => {
+              const img = document.createElement("img");
+              /* reader.result это закодированное изображение  */
+              const imgBase64 = reader.result;
+              initParam.base64Result.push(imgBase64);
+              img.src = imgBase64;
+              img.className = initParam.htmlAppendClass;
+              imageContainer.appendChild(img);
+              /* Отправляем именно base64, т.е. часть с  
+              'data:image;base64,' удаляется перед отправкой */
+              vm.$emit(initParam.event, imgBase64.split(',')[1]);
+            };
+          },
+          error(error) {
+            /* TODO: можно добавить изображение с каким нибудь шаблоном 
+            для тех файлов что по какой либо причине не загрузились и 
+            выводить их в DOM. Но надо ли? */
+            console.log(error.message);
+          }
+        });
+      };
+      const encodeImageFileAsURL = element => {
+        compessorWorker(element, {
+          quality: 0.85,
+          width: 1200,
+          height: 1200,
+          htmlAppendElem: `dropZone--gallery--full`,
+          htmlAppendClass: "dropZone--gallery--full--img",
+          base64Result: vm.image,
+          event: "dropImage"
+        });
+      };
+      const makeThumbnail = element => {
+        compessorWorker(element, {
+          quality: 0.85,
+          width: 400,
+          height: 400,
+          htmlAppendElem: `dropZone--gallery--thumbnail`,
+          htmlAppendClass: "dropZone--gallery--thumbnail--img",
+          base64Result: vm.thumbnail,
+          event: "dropThumbnail"
+        });
+      };
+
+      [...files].forEach(element => {
+        encodeImageFileAsURL(element);
+        makeThumbnail(element);
+      });
+    }
   }
 };
-export default DND;
 </script>
 
-<style scoped>
-#dropZone {
-  border: 2px dashed #ccc;
+<style lang='less'>
+.dropZone {
+  border: 2px dashed var(--grey);
   border-radius: 0px;
-  margin: 10px 0;
   width: 100%;
   max-width: 500px;
   padding: 20px;
   text-align: center;
-}
+  overflow: hidden;
 
-#dropZone.highlight {
-  border-color: #fff59b;
-}
+  &.highlight {
+    border-color: var(--button--hover--bg);
+  }
 
-dropZone--form--text {
-  margin-top: 0;
+  &--hide {
+    width: 20px;
+    height: 20px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: 1;
+  }
 }
 
 .dropZone--form {
   margin-bottom: 10px;
+  &--text {
+    margin-top: 0;
+    &--limits {
+      font-size: 12px;
+    }
+  }
+  &--button {
+    padding: 10px;
+    cursor: pointer;
+    margin-top: 0;
+    border: 1px solid #ccc;
+    &:hover {
+      background: var(--button--hover--bg);
+    }
+  }
 }
 
-#dropZone--gallery {
+.dropZone--gallery {
   margin-top: 10px;
-}
-
->>>.dropImg {
-  width: 150px;
-  margin-bottom: 10px;
-  margin-right: 10px;
-  vertical-align: middle;
-}
-
-.dropZone--form--button {
-  display: inline-block;
-  padding: 10px;
-  cursor: pointer;
-  border: 1px solid #ccc;
-}
-
-.dropZone--form--button:hover {
-  background: #fff59b;
+  &--full {
+    display: none;
+    &--img {
+      width: 250px;
+      max-width: 100%;
+      margin-bottom: 10px;
+      margin-right: 10px;
+      vertical-align: middle;
+    }
+  }
+  &--thumbnail {
+    &--img {
+      width: 150px;
+      margin-bottom: 10px;
+      margin-right: 10px;
+      vertical-align: middle;
+    }
+  }
 }
 </style>
