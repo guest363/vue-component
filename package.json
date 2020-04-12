@@ -8,7 +8,8 @@
     "build": "webpack --config prod-webpack.js",
     "dev": "webpack-dev-server --mode development --config dev-webpack.js",
     "push": "git push origin master",
-    "make": "webpack --config make-webpack.js"
+    "make": "webpack --config make-webpack.js",
+    "storybook": "start-storybook"
   },
   "repository": {
     "type": "git",
@@ -26,6 +27,9 @@
   },
   "homepage": "https://github.com/guest363/vue-component#readme",
   "devDependencies": {
+    "@babel/core": "^7.9.0",
+    "@storybook/addon-knobs": "^5.3.18",
+    "@storybook/vue": "^5.3.18",
     "autoprefixer": "^9.1.5",
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.5",
@@ -33,6 +37,7 @@
     "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.7.0",
     "babel-preset-es2015": "^6.24.1",
+    "babel-preset-vue": "^2.0.2",
     "chai": "^4.1.2",
     "clean-webpack-plugin": "^0.1.19",
     "copy-webpack-plugin": "^4.5.2",
@@ -60,8 +65,8 @@
     "optimize-css-assets-webpack-plugin": "^5.0.1",
     "phantomjs": "^2.1.7",
     "phantomjs-prebuilt": "^2.1.16",
-    "vue-loader": "^15.4.2",
-    "vue-template-compiler": "^2.5.17",
+    "vue-loader": "^15.9.1",
+    "vue-template-compiler": "^2.6.11",
     "vue-test-utils": "^1.0.0-beta.11",
     "webpack": "^4.16.5",
     "webpack-cli": "^3.1.1",

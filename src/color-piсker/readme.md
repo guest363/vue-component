@@ -1,10 +1,10 @@
 # Color-piker
 
-Компонент выводит палитру заданных цветов. 
+Компонент выводит палитру заданных цветов.
 
-По цветам можно кликать, компонент возвращает названия выбранных цветов. 
+По цветам можно кликать, компонент возвращает названия выбранных цветов.
 
-Цвета задаются через имя, список html цветов можно посмотреть здесь [здесь](http://vvz.nw.ru/Lessons/HTML_Colors/HTMLcolors_HSB.htm). 
+Цвета задаются через имя, список html цветов можно посмотреть здесь [здесь](http://vvz.nw.ru/Lessons/HTML_Colors/HTMLcolors_HSB.htm).
 
 При наведении на элемент цвета всплывает подсказда с его русским наименованием.
 
@@ -14,14 +14,16 @@
 
 ```
 {
-    color: ["black", "grey", "saddlebrown", "whitesmoke", "navajowhite"]
+    colors: ["black", "grey", "saddlebrown", "whitesmoke", "navajowhite"]
 }
 ```
+
 ## Выходные параметры
 
 ```
 ["black", "grey", "saddlebrown", "whitesmoke", "navajowhite"]
 ```
+
 ## Инициализация
 
 Пример:
@@ -29,7 +31,7 @@
 ```
 <template>
   <div>
-    <color-picker :data='dataForColorPiker' v-on:colorPiked="colorPiked = $event"></color-picker>
+    <color-picker :colors='color' v-on:colorPiked="colorPiked = $event"></color-picker>
   </div>
 </template>
 
@@ -41,26 +43,27 @@ export default {
   data: () => {
     return {
         colorPiked: '',
-        dataForColorPiker: {
-            color: ["black", "grey", "saddlebrown"]
-        }
+        color: ["black", "grey", "saddlebrown"]
     };
   },
   components: {
         "color-picker": colorPicker,
   },
   methods: {
-    
+
   },
   mounted() {}
 };
 </script>
 
 ```
+
 ## Установка
 
 Достаточно скопировать файл с расширением "vue"
+
 ## Как выглядит
+
 Для таких входных параметров ["black", "grey", "saddlebrown", "whitesmoke", "navajowhite"]
 
 ![5 цветов ](https://github.com/guest363/vue-component/blob/master/color-piker/example/1.jpg)

@@ -1,9 +1,18 @@
 <template>
-<div class="color-picker-wrap">
-    <div v-for="(item, index) in data.color" v-on:click="$emit('colorPiked', whatIsSelect())" v-bind:key="index">
-        <div tabindex="-1" class="color-pick" v-bind:value="item" v-bind:style="{ background: item }"></div>
+  <div class="color-picker-wrap">
+    <div
+      v-for="(item, index) in colors"
+      v-on:click="$emit('colorPiked', whatIsSelect())"
+      v-bind:key="index"
+    >
+      <div
+        tabindex="-1"
+        class="color-pick"
+        v-bind:value="item"
+        v-bind:style="{ background: item }"
+      ></div>
     </div>
-</div>
+  </div>
 </template>
 
 <script>
@@ -13,23 +22,23 @@ import propValidator from "./support/propValidator.js";
 
 export default {
   props: {
-    data: {
-      type: Object,
+    colors: {
+      type: Array,
       validator: function(value) {
         // Проверяет есть ли цвета в словаре
         let isCorrect = true;
-        value.color.forEach(element => {
+        value.forEach(element => {
           if (!propValidator(element)) {
             isCorrect = false;
-            throw new Error("допустимы только значения определенных цветов, см. colorDictionary.js");
+            throw new Error(
+              "допустимы только значения определенных цветов, см. colorDictionary.js"
+            );
           }
         });
         return isCorrect;
       },
       default: function() {
-        return {
-          color: ["black", "grey", "saddlebrown", "whitesmoke", "navajowhite"]
-        };
+        return ["black", "grey", "saddlebrown", "whitesmoke", "navajowhite"];
       }
     }
   },
