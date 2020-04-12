@@ -1,5 +1,7 @@
 import { storiesOf } from "@storybook/vue";
+/* Addons to storybook */
 import { withKnobs, array } from "@storybook/addon-knobs";
+/* ------------------- */
 import colorPicker from "./color-piсker.vue";
 
 export default { title: "Выбор цвета", decorators: [withKnobs] };
@@ -30,5 +32,10 @@ export const exampleWithKnobs = () => ({
       ])
     }
   },
-  template: `<color-picker :colors='color'></color-picker>`
+  methods: {
+    print(item) {
+      console.log(item);
+    }
+  },
+  template: `<color-picker v-on:colorPiked='print($event)' :colors='color'></color-picker>`
 });
