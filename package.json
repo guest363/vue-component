@@ -1,14 +1,13 @@
 {
   "name": "vue-component",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Reusable Vue.js component for common purpose",
   "main": "index.js",
   "scripts": {
     "test": "karma start karma.conf.js",
-    "build": "webpack --config prod-webpack.js",
-    "dev": "webpack-dev-server --mode development --config dev-webpack.js",
+    "build": "webpack --config webpack.prod.js",
+    "dev": "webpack-dev-server --mode development --config webpack.dev.js",
     "push": "git push origin master",
-    "make": "webpack --config make-webpack.js",
     "storybook": "start-storybook"
   },
   "repository": {
@@ -65,6 +64,8 @@
     "karma-safari-launcher": "^1.0.0",
     "karma-sourcemap-loader": "^0.3.7",
     "karma-webpack": "^3.0.0",
+    "less": "^3.11.1",
+    "less-loader": "^5.0.0",
     "mini-css-extract-plugin": "^0.4.3",
     "mocha": "^5.2.0",
     "mocha-jsdom": "^2.0.0",
@@ -74,7 +75,7 @@
     "vue-loader": "^15.9.1",
     "vue-template-compiler": "^2.6.11",
     "vue-test-utils": "^1.0.0-beta.11",
-    "webpack": "^4.16.5",
+    "webpack": "^4.42.1",
     "webpack-cli": "^3.1.1",
     "webpack-dev-server": "^3.1.9",
     "xmlhttprequest": "^1.8.0"

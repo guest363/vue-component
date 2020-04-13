@@ -5,7 +5,7 @@ import { withKnobs, array } from "@storybook/addon-knobs";
 import colorPicker from "./color-piсker.vue";
 
 export default {
-  title: "Выбор цвета",
+  title: "Компонент выбора цвета",
   decorators: [withKnobs],
   component: colorPicker
 };
