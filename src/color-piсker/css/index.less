@@ -1,4 +1,4 @@
-.color-picker-wrap {
+.wrapper {
   display: flex;
   margin: 28px auto;
   justify-content: center;
@@ -17,21 +17,18 @@
   -o-transition: all 0.3s ease-out;
   -webkit-transition: all 0.3s ease-out;
   transition: all 0.3s ease-out;
-}
-
-.color-pick:focus {
-  outline: none;
-}
-
-.color-pick--select {
-  width: 36px;
-  height: 36px;
-  margin: 0 4px;
-}
-
-.color-pick::before {
-  content: "";
-  display: inline-block;
-  vertical-align: middle;
-  padding-top: 100%;
+  &::before {
+    content: "";
+    display: inline-block;
+    vertical-align: middle;
+    padding-top: 100%;
+  }
+  &:focus {
+    outline: none;
+  }
+  &--select {
+    width: 36px;
+    height: 36px;
+    margin: 0 4px;
+  }
 }

@@ -1,5 +1,5 @@
 <template>
-  <div class="color-picker-wrap">
+  <div class="wrapper">
     <div
       v-for="(item, index) in colors"
       v-on:click="$emit('colorPiked', whatIsSelect())"
@@ -58,4 +58,4 @@ export default {
 };
 </script>
 
-<style src="./css/index.less" lang="less"></style>
+<style src="./css/index.less" lang="less" scoped></style>
