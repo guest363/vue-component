@@ -7,23 +7,9 @@ import colorPicker from "./color-piсker.vue";
 export default {
   title: "Компонент выбора цвета",
   decorators: [withKnobs],
-  component: colorPicker
+  component: colorPicker,
 };
 
-export const defaultElem = () => ({
-  components: { colorPicker },
-  template: `<color-picker></color-picker>`
-});
-
-export const setColors = () => ({
-  data: () => {
-    return {
-      color: ["black", "grey", "saddlebrown"]
-    };
-  },
-  components: { colorPicker },
-  template: `<color-picker :colors='color'></color-picker>`
-});
 export const exampleWithKnobs = () => ({
   components: { colorPicker },
   props: {
@@ -34,14 +20,14 @@ export const exampleWithKnobs = () => ({
         "whitesmoke",
         "navajowhite",
         "brown",
-        "pink"
-      ])
-    }
+        "pink",
+      ]),
+    },
   },
   methods: {
     print(item) {
       console.log(item);
-    }
+    },
   },
-  template: `<color-picker v-on:colorPiked='print($event)' :colors='color'></color-picker>`
+  template: `<color-picker v-on:colorPiked='print($event)' :colors='color'></color-picker>`,
 });
