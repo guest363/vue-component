@@ -20,13 +20,13 @@
 
 ## Входные параметры по умолчанию
 
+Все параметры опциональные
+
 ```
- prop: {
-        showHeader: true, // Видимость заголовка
-        textHeader: 'Курсы валют', // Текст заголовка
-        cash: ["USD", "EUR"], // Валюты которые будут в выдаче
-        round: 1000 // Степень округления
-  }
+    showHeader: true, // Видимость заголовка
+    textHeader: 'Курсы валют', // Текст заголовка
+    cash: ["USD", "EUR"], // Валюты которые будут в выдаче
+    round: 1000 // Степень округления
 ```
 
 ## Выходные параметры
@@ -43,7 +43,7 @@
 ```
 <template>
   <div>
-     <course-widget :propsForCourse='propsForCourse'> </course-widget>
+     <course-widget :showHeader='showHeader' :textHeader="textHeader" :cash="cash" :round="round"> </course-widget>
   </div>
 </template>
 
@@ -57,12 +57,10 @@ export default {
   },
   data: () => {
     return {
-        propsForCourse: {
-          showHeader: true,
-          textHeader: 'Курсы валют',
-          cash: ["USD", "EUR"],
-          round: 1000
-        }
+        showHeader: true,
+        textHeader: 'Курсы валют',
+        cash: ["USD", "EUR"],
+        round: 1000
     };
   }
 };
