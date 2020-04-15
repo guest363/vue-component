@@ -1,5 +1,5 @@
-import dictionary from './colorDictionary.js';
+import dictionary from "./colorDictionary.js";
 
-export default elem => {
-    return (dictionary[elem]) ? true : false;
-}
+export const propValidatorByDictionary = elem => {
+  return dictionary[elem] ? true : false;
+};

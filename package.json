@@ -72,6 +72,7 @@
     "optimize-css-assets-webpack-plugin": "^5.0.1",
     "phantomjs": "^2.1.7",
     "phantomjs-prebuilt": "^2.1.16",
+    "storybook-readme": "^5.0.8",
     "vue-loader": "^15.9.1",
     "vue-template-compiler": "^2.6.11",
     "vue-test-utils": "^1.0.0-beta.11",

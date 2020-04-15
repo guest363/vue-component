@@ -6,6 +6,10 @@
       v-bind:key="index"
     >
       <div
+        ref="colors"
+        @mouseover="drawTooltip($event)"
+        @mouseout="delTooltip($event)"
+        @click="selectColor($event)"
         tabindex="-1"
         class="color-pick"
         v-bind:value="item"
@@ -17,44 +21,63 @@
 
 <script>
 import makeTooltip from "./support/tooltip.js";
-import onPickAction from "./support/onPickAction.js";
-import propValidator from "./support/propValidator.js";
+import { propValidatorByDictionary } from "./support/propValidator.js";
+const CLASS_NAME = "color-pick--select";
+const RGB_HEX_HSLA_REG = /^#([\da-f]{3}){1,2}$|^#([\da-f]{4}){1,2}$|(rgb|hsl)a?\((\s*-?\d+%?\s*,){2}(\s*-?\d+%?\s*,?\s*\)?)(,\s*(0?\.\d+)?|1)?\)/;
 
 export default {
+  data() {
+    return {
+      selectedColors: new Map(),
+    };
+  },
   props: {
     colors: {
       type: Array,
       validator: function(value) {
-        // Проверяет есть ли цвета в словаре
-        let isCorrect = true;
-        value.forEach(element => {
-          if (!propValidator(element)) {
-            isCorrect = false;
-            throw new Error(
-              "допустимы только значения определенных цветов, см. colorDictionary.js"
-            );
-          }
-        });
-        return isCorrect;
+        // Проверяет есть ли цвета в словаре, словарь для ускорения проверки
+        return (
+          value.every((element) => propValidatorByDictionary(element)) ||
+          RGB_HEX_HSLA_REG.test(value)
+        );
       },
       default: function() {
         return ["black", "grey", "saddlebrown", "whitesmoke", "navajowhite"];
-      }
-    }
+      },
+    },
   },
   methods: {
-    whatIsSelect: () => {
-      return onPickAction.whatIsSelect();
-    }
+    /**
+     * Возвращает массив выбранных цветов, тех эл. которые
+     * содержат класс 'color-pick--select'
+     *
+     * @return {MapIterator} Массив выбранных цветов.
+     */
+    whatIsSelect() {
+      return this.selectedColors.keys();
+    },
+    drawTooltip(event) {
+      return makeTooltip.make(event.target);
+    },
+    delTooltip(event) {
+      return makeTooltip.del(event.target);
+    },
+    /**
+     * По клику добавляет\удаляет класс из переменной CLASS_NAME
+     * и навешивает фокус
+     *
+     * @param {event} event Событие клика.
+     */
+    selectColor(event) {
+      const target = event.target;
+      const color = target.getAttribute("value");
+      this.selectedColors.has(color)
+        ? this.selectedColors.delete(color)
+        : this.selectedColors.set(color, color);
+      target.focus();
+      target.classList.toggle(CLASS_NAME);
+    },
   },
-  mounted() {
-    onPickAction.makePiker("color-pick");
-    const tooltip = document.getElementsByClassName("color-pick");
-    const allTooltipElem = [].map.call(tooltip, elem => {
-      elem.onmouseover = makeTooltip.make;
-      elem.onmouseout = makeTooltip.del;
-    });
-  }
 };
 </script>
 

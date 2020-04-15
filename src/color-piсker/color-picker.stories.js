@@ -32,7 +32,9 @@ export const exampleWithKnobs = () => ({
         "black",
         "saddlebrown",
         "whitesmoke",
-        "navajowhite"
+        "navajowhite",
+        "brown",
+        "pink"
       ])
     }
   },
