@@ -7,7 +7,8 @@ module.exports = {
     "@storybook/addon-storysource",
     "@storybook/addon-docs",
     "@storybook/addon-viewport/register",
-    "@storybook/addon-backgrounds/register"
+    "@storybook/addon-backgrounds/register",
+    "@storybook/addon-notes/register",
   ],
   webpackFinal: async (config, { configType }) => {
     // `configType` has a value of 'DEVELOPMENT' or 'PRODUCTION'
@@ -18,10 +19,18 @@ module.exports = {
     config.module.rules.push({
       test: /\.less$/,
       use: ["vue-style-loader", "css-loader", "less-loader"],
-      include: path.resolve(__dirname, "../")
+      include: path.resolve(__dirname, "../"),
+    });
+    config.module.rules.push({
+      resourceQuery: /blockType=docs/,
+      use: [
+        "storybook-readme/vue/docs-loader",
+        "html-loader",
+        "markdown-loader",
+      ],
     });
 
     // Return the altered config
     return config;
-  }
+  },
 };
