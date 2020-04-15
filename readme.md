@@ -7,7 +7,7 @@
 Vue.js версии 2
 
 ## Install
-Копируя нужный компонент из исходников или импоррт из ./build/bundle.js
+Импорт из ./build/bundle.js
 
 // export { colorPicker, courseCB, dateFallback, DND, shootTarget, sideChapter, suggestionDadata, svgLoader};
 

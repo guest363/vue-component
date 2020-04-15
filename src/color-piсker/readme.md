@@ -58,7 +58,7 @@ export default {
 
 ## Установка
 
-Достаточно скопировать файл с расширением "vue"
+import { colorPicker } from './docs/bundle.js'
 
 ## Как выглядит
 
