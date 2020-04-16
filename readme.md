@@ -21,6 +21,7 @@
 - [Shoot-target](#Shoot-target)
 - [Side-chapter](#Side-chapter)
 - [Svg-loader](#Svg-loader)
+- [Custom-input](#Custom-input)
 
 # Color-piсker
 
@@ -89,3 +90,14 @@
 Анимации загрузки в SVG
 
 ![Пример с кругами](https://github.com/guest363/vue-component/blob/master/src/svg-loaders/example/1.gif)
+
+# Custom-input
+
+Легко настраиваемый компонент инпута с возможностью подсказок от dadata.
+
+## Зависимости
+
+- axios
+- cleave.js
+
+![В окне авторизации ](https://github.com/guest363/vue-component/blob/master/custom-input/example/1.jpg)
