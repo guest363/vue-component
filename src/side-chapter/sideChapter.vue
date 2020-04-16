@@ -7,7 +7,9 @@
   </div>
 </template>
 
+
 <script>
+/* Совсем не vue style зато легко перенести на читый js*/
 export default {
   name: "sideChapter",
   props: ["data"],

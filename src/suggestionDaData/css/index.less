@@ -1,0 +1,58 @@
+.autocomplete {
+  position: relative;
+  width: 100%;
+  &--results {
+    padding: 0;
+    margin: 0;
+    border: 1px solid #eeeeee;
+    height: auto;
+    overflow: auto;
+    z-index: 20;
+    width: 100%;
+    background-color: #ffffff;
+    padding: 0 20px;
+    border: #3f3f3f 1px solid;
+    border-top: none;
+    position: absolute;
+    &--li {
+      list-style: none;
+      text-align: left;
+      padding: 4px 2px;
+      cursor: pointer;
+    }
+  }
+}
+
+.autocomplete--input,
+#phone,
+#fio {
+  width: 100%;
+  padding: 10px 20px;
+  border: #3f3f3f 2px solid;
+  margin-top: 15px;
+}
+.is-active,
+.autocomplete--result:hover {
+  background-color: #faf4be;
+  color: #353434;
+}
+#address:disabled {
+  background: #ffffff;
+}
+#address:focus,
+#city:focus {
+  background-color: #fbf9df;
+  outline: none;
+  font-family: "Montserrat-b";
+  color: #3f3f3f;
+}
+#address,
+#city {
+  font-family: "Montserrat-b";
+  color: #3f3f3f;
+}
+#address::placeholder,
+#city::placeholder {
+  font-family: "Montserrat";
+  color: #828282;
+}
