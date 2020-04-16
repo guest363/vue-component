@@ -100,4 +100,4 @@
 - axios
 - cleave.js
 
-![В окне авторизации ](https://github.com/guest363/vue-component/blob/master/custom-input/example/1.jpg)
+![В окне авторизации ](https://github.com/guest363/vue-component/blob/master/src/custom-input/example/1.jpg)
