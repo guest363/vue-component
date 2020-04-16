@@ -43,7 +43,7 @@
 import Cleave from "cleave.js";
 import "cleave.js/dist/addons/cleave-phone.ru.js";
 import dadata from "./dadataSugestion.js";
-import trottle from "../trottle.js";
+import trottle from "./trottle.js";
 
 const input = {
   name: "custom-input",
