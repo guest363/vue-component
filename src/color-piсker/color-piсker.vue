@@ -6,7 +6,6 @@
       v-bind:key="index"
     >
       <div
-        ref="colors"
         @mouseover="drawTooltip($event)"
         @mouseout="delTooltip($event)"
         @click="selectColor($event)"

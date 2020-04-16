@@ -1,5 +1,3 @@
-import { storiesOf } from "@storybook/vue";
-/* Addons to storybook */
 import {
   withKnobs,
   array,

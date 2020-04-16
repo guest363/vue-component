@@ -1,26 +1,31 @@
 <template>
   <div
     class="dropZone"
-    v-on:dragenter="enter($event)"
-    v-on:dragleave="leave($event)"
-    v-on:dragover="over($event)"
-    v-on:drop="drop($event)"
+    @dragenter="enter($event)"
+    @dragleave="leave($event)"
+    @dragover="over($event)"
+    @drop="drop($event)"
   >
     <form class="flex-center dropZone--form">
-      <p class="dropZone--form--text">{{data.text.main}}</p>
-      <label v-show="data.show.button" class="common--button dropZone--form--button flex-center">
-        {{data.text.button}}
+      <p class="dropZone--form--text">{{ textMain }}</p>
+      <label
+        v-show="showButton"
+        class="common--button dropZone--form--button flex-center"
+      >
+        {{ textButton }}
         <input
-          v-on:change="selectInput($event)"
+          @change="selectInput($event)"
           type="file"
           class="dropZone--hide"
           title="Загрузите одну или несколько фотографий"
           required
           multiple
           accept="image/*"
-        >
+        />
       </label>
-      <p v-show="data.show.limits" class="dropZone--form--text--limits">{{data.text.limits}}</p>
+      <p v-show="showLimits" class="dropZone--form--text--limits">
+        {{ textLimits }}
+      </p>
     </form>
     <!-- Локальная загрузка довольна быстрая, полоса загрузки не требуется
     <progress id="dropZone--progress-bar" max=100 value=0></progress>-->
@@ -41,7 +46,7 @@ import Compressor from "compressorjs";
  * каждом добавлении картинки, в этом событии картинка
  * сжимается до большого размера. Пример подписи на
  * событие у родителя
- * v-on:dropImage="imageHendler('SHELTER', $event)"
+ * @dropImage="imageHendler('SHELTER', $event)"
  * @emits dropThumbnail здесь сильно уменьшенное превью
  * @requires Compressor для сжатия изображений
  */
@@ -50,51 +55,37 @@ export default {
   data: () => {
     return {
       image: [],
-      thumbnail: []
+      thumbnail: [],
     };
   },
   /** Параметры для инициализации компонента
-   * @param {object} data входные параметры для инициализации
-   * @param {object} data.show показ\скрытие отдельных эллементов
-   * @param {Boolean} data.show.button показ\скрытие кнопку выбора файлов, по умолчанию показать
-   * @param {Boolean} data.show.limits показ\скрытие строки с ограничениями, по умолчанию скрыть
-   * @param {object} data.text
-   * @param {object} data.text.main основной текст, поясняющий что можно делать с элементом
-   * @param {object} data.text.button текст для кнопки
-   * @param {object} data.text.limits текст ограничений
+   * @param {Boolean} showButton показ\скрытие кнопку выбора файлов, по умолчанию показать
+   * @param {Boolean} showLimits показ\скрытие строки с ограничениями, по умолчанию скрыть
+   * @param {String} textMain основной текст, поясняющий что можно делать с элементом
+   * @param {String} textButton текст для кнопки
+   * @param {String} textLimits текст ограничений
    */
   props: {
-    data: {
-      type: Object,
-      default: function() {
-        return {
-          show: {
-            button: {
-              type: Boolean,
-              default: true
-            },
-            limits: {
-              type: Boolean,
-              default: false
-            }
-          },
-          text: {
-            main: {
-              type: String,
-              default: "Перетащите или выберите изображение"
-            },
-            button: {
-              type: String,
-              default: "Выбрать изображения"
-            },
-            limits: {
-              type: String,
-              default: "Файлы до 2 мегабайт"
-            }
-          }
-        };
-      }
-    }
+    showButton: {
+      type: Boolean,
+      default: true,
+    },
+    showLimits: {
+      type: Boolean,
+      default: false,
+    },
+    textButton: {
+      type: String,
+      default: "Выбрать изображения",
+    },
+    textMain: {
+      type: String,
+      default: "Перетащите или выберите изображение",
+    },
+    textLimits: {
+      type: String,
+      default: "Файлы до 2 мегабайт",
+    },
   },
   methods: {
     /**
@@ -163,20 +154,20 @@ export default {
               img.src = imgBase64;
               img.className = initParam.htmlAppendClass;
               imageContainer.appendChild(img);
-              /* Отправляем именно base64, т.е. часть с  
+              /* Отправляем именно base64, т.е. часть с
               'data:image;base64,' удаляется перед отправкой */
-              vm.$emit(initParam.event, imgBase64.split(',')[1]);
+              vm.$emit(initParam.event, imgBase64.split(",")[1]);
             };
           },
           error(error) {
-            /* TODO: можно добавить изображение с каким нибудь шаблоном 
-            для тех файлов что по какой либо причине не загрузились и 
+            /* TODO: можно добавить изображение с каким нибудь шаблоном
+            для тех файлов что по какой либо причине не загрузились и
             выводить их в DOM. Но надо ли? */
             console.log(error.message);
-          }
+          },
         });
       };
-      const encodeImageFileAsURL = element => {
+      const encodeImageFileAsURL = (element) => {
         compessorWorker(element, {
           quality: 0.85,
           width: 1200,
@@ -184,10 +175,10 @@ export default {
           htmlAppendElem: `dropZone--gallery--full`,
           htmlAppendClass: "dropZone--gallery--full--img",
           base64Result: vm.image,
-          event: "dropImage"
+          event: "dropImage",
         });
       };
-      const makeThumbnail = element => {
+      const makeThumbnail = (element) => {
         compessorWorker(element, {
           quality: 0.85,
           width: 400,
@@ -195,81 +186,17 @@ export default {
           htmlAppendElem: `dropZone--gallery--thumbnail`,
           htmlAppendClass: "dropZone--gallery--thumbnail--img",
           base64Result: vm.thumbnail,
-          event: "dropThumbnail"
+          event: "dropThumbnail",
         });
       };
 
-      [...files].forEach(element => {
+      [...files].forEach((element) => {
         encodeImageFileAsURL(element);
         makeThumbnail(element);
       });
-    }
-  }
+    },
+  },
 };
 </script>
 
-<style lang='less'>
-.dropZone {
-  border: 2px dashed var(--grey);
-  border-radius: 0px;
-  width: 100%;
-  max-width: 500px;
-  padding: 20px;
-  text-align: center;
-  overflow: hidden;
-
-  &.highlight {
-    border-color: var(--button--hover--bg);
-  }
-
-  &--hide {
-    width: 20px;
-    height: 20px;
-    opacity: 0;
-    overflow: hidden;
-    position: absolute;
-    z-index: 1;
-  }
-}
-
-.dropZone--form {
-  margin-bottom: 10px;
-  &--text {
-    margin-top: 0;
-    &--limits {
-      font-size: 12px;
-    }
-  }
-  &--button {
-    padding: 10px;
-    cursor: pointer;
-    margin-top: 0;
-    border: 1px solid #ccc;
-    &:hover {
-      background: var(--button--hover--bg);
-    }
-  }
-}
-
-.dropZone--gallery {
-  margin-top: 10px;
-  &--full {
-    display: none;
-    &--img {
-      width: 250px;
-      max-width: 100%;
-      margin-bottom: 10px;
-      margin-right: 10px;
-      vertical-align: middle;
-    }
-  }
-  &--thumbnail {
-    &--img {
-      width: 150px;
-      margin-bottom: 10px;
-      margin-right: 10px;
-      vertical-align: middle;
-    }
-  }
-}
-</style>
+<style src="./css/index.less" lang="less" scoped></style>
