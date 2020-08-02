@@ -45,7 +45,7 @@ module.exports = {
       },
       {
         test: /\.less$/,
-        use: [{ loader: "style-loader" }, { loader: "less-loader" }]
+        use: ["vue-style-loader", "css-loader", "less-loader"]
       },
       {
         test: /\.jpe?g$|\.gif$|\.png$/i,
