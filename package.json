@@ -87,7 +87,7 @@
     "xmlhttprequest": "^1.8.0"
   },
   "dependencies": {
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "cleave.js": "^1.6.0",
     "compressorjs": "^1.0.6",
     "vue": "^2.6.12"
